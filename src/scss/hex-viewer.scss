@@ -5,9 +5,7 @@
   color: $hex-color;
 
   div.heading {
-    font-family: monospace;
-    width: 4.5em;
-    float: left;
+    font-family: $hex-font-family;
   }
   div.hex-row {
     display: flex;
@@ -32,7 +30,7 @@
     float: left;
     margin: 0;
     padding: 0;
-    font-family: monospace;
+    font-family: $hex-font-family;
     text-align: center;
     margin-right: 5px;
     margin-left: 5px;

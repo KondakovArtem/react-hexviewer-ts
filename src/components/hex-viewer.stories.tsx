@@ -1,42 +1,63 @@
-import React from "react";
+import React, { FC } from "react";
 import { Story, Meta } from "@storybook/react";
 
 import { HexViewer, HexViewerProps } from "./hex-viewer";
-import './scss/hex-viewer.scss';
+import "../scss/hex-viewer.scss";
 
 export default {
   title: "Example/HexViewer",
   component: HexViewer,
-  argTypes: {
-    // backgroundColor: { control: "color" },
-  },
+  argTypes: {},
 } as Meta;
 
-const Template: Story<HexViewerProps> = (args) => <HexViewer {...args} />;
+const CustomNoDataNode = () => {
+  return <div>Custom No Data</div>;
+};
+
+const CustomErrorDataNode = () => {
+  return <div>Custom Error Data</div>;
+}
+
+const Template: Story<HexViewerProps> = (args) => {
+  debugger;
+  return <HexViewer {...args}></HexViewer>;
+};
 
 export const Primary = Template.bind({});
 Primary.args = {
-    hex: '9f95fa',
-    rowLength: 16,
-    setLength: 4
-
-  //   primary: true,
-  //   label: "Button",
+  children:
+    "FE060000D2000000835C9B010000000000000000782418290A0001000000000300000000000000000300000000000000000300000000000000000110270000010000000001102700000100000000010000000000000000000100000000000000000001102700000100000000011027000001000000000110270000010000000008000000000000000000000800000000000000000000000000000000000000250000000000144200001C42C0A25D4800D85D48000000000000000000000096C3000096C3000096C3000096C3000096C3000096C3000096C3000096C300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009D01000000000000",
+  rowLength: 16,
+  setLength: 4,
+  hex: true,
 };
 
-// export const Secondary = Template.bind({});
-// Secondary.args = {
-//   //   label: "Button",
-// };
+export const Base64 = Template.bind({});
+Base64.args = {
+  children:
+    "TG9yZW0gSXBzdW0gaXMgc2ltcGx5IGR1bW15IHRleHQgb2YgdGhlIHByaW50aW5nIGFuZCB0eXBlc2V0dGluZyBpbmR1c3RyeS4gTG9yZW0gSXBzdW0gaGFzIGJlZW4gdGhlIGluZHVzdHJ5J3Mgc3RhbmRhcmQgZHVtbXkgdGV4dCBldmVyIHNpbmNlIHRoZSAxNTAwcywgd2hlbiBhbiB1bmtub3duIHByaW50ZXIgdG9vayBhIGdhbGxleSBvZiB0eXBlIGFuZCBzY3JhbWJsZWQgaXQgdG8gbWFrZSBhIHR5cGUgc3BlY2ltZW4gYm9vay4gSXQgaGFzIHN1cnZpdmVkIG5vdCBvbmx5IGZpdmUgY2VudHVyaWVzLCBidXQgYWxzbyB0aGUgbGVhcCBpbnRvIGVsZWN0cm9uaWMgdHlwZXNldHRpbmcsIHJlbWFpbmluZyBlc3NlbnRpYWxseSB1bmNoYW5nZWQuIEl0IHdhcyBwb3B1bGFyaXNlZCBpbiB0aGUgMTk2MHMgd2l0aCB0aGUgcmVsZWFzZSBvZiBMZXRyYXNldCBzaGVldHMgY29udGFpbmluZyBMb3JlbSBJcHN1bSBwYXNzYWdlcywgYW5kIG1vcmUgcmVjZW50bHkgd2l0aCBkZXNrdG9wIHB1Ymxpc2hpbmcgc29mdHdhcmUgbGlrZSBBbGR1cyBQYWdlTWFrZXIgaW5jbHVkaW5nIHZlcnNpb25zIG9mIExvcmVtIElwc3VtLg==",
+  rowLength: 16,
+  setLength: 4,
+  base64: true,
+};
 
-// export const Large = Template.bind({});
-// Large.args = {
-//   //   size: "large",
-//   //   label: "Button",
-// };
+export const NumberArray = Template.bind({});
+NumberArray.args = {
+  children: new Array(255).fill(1).map((v, i) => i),
+  rowLength: 16,
+  setLength: 4,
+};
 
-// export const Small = Template.bind({});
-// Small.args = {
-//   //   size: "small",
-//   //   label: "Button",
-// };
+export const CustomNoData = Template.bind({});
+CustomNoData.args = {
+  rowLength: 16,
+  noData: <CustomNoDataNode />,
+  setLength: 4,
+};
+
+export const CustomErrorData = Template.bind({});
+CustomErrorData.args = {
+  rowLength: 16,
+  noData: <CustomErrorDataNode />,
+  setLength: 4,
+};

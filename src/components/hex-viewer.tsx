@@ -1,55 +1,85 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode, useEffect, useState } from "react";
 import { Hex } from "./hex";
 
 export interface HexViewerProps {
-  rowLength: number;
-  setLength: number;
-  hex?: string;
-  base64?: string;
-  buffer?: Buffer | number[];
+  rowLength?: number;
+  setLength?: number;
+  children: string | Buffer | number[];
+  hex?: boolean;
+  base64?: boolean;
+  noData?: ReactNode;
+  errorData?: ReactNode;
 }
 
 export const HexViewer: FC<HexViewerProps> = (props) => {
-  const { rowLength, setLength, buffer, base64, hex } = props;
-  const rowChunk = rowLength;
-  const setChunk = setLength;
-  const rows = [];
-  let row = [];
-  let set = [];
+  const {
+    rowLength = 16,
+    setLength = 4,
+    children,
+    base64,
+    hex,
+    noData,
+    errorData,
+  } = props;
+  const [rows, setRows] = useState<number[][][]>([]);
+  const [isErrorData, setIsErrorData] = useState(false);
 
-  let bufferData: number[] = [];
-
-  let rawData: Buffer | number[] | undefined;
-  if (hex) {
-    rawData = Buffer.from(hex, "hex");
-  } else if (base64) {
-    rawData = Buffer.from(base64, "base64");
-  } else {
-    rawData = buffer;
-  }
-  rawData = rawData || [];
-  const bytes = rawData.length;
-  if (Buffer.isBuffer(rawData)) {
-    for (let i = 0; i < bytes; i += 1) {
-      bufferData.push(rawData[i]);
-    }
-  } else {
-    bufferData = rawData;
-  }
-  for (let i = 0; i < bytes; i += rowChunk) {
-    const temparray = bufferData.slice(i, i + rowChunk);
-    for (let z = temparray.length; z < rowChunk; z += 1) {
-      temparray.push(-1);
-    }
-    row = [];
-    for (let x = 0, k = temparray.length; x < k; x += setChunk) {
-      set = temparray.slice(x, x + setChunk);
-      for (let z = set.length; z < setChunk; z += 1) {
-        set.push(-1);
+  useEffect(() => {
+    let isError = false;
+    try {
+      const newRows = [];
+      let row = [];
+      let set = [];
+      let bufferData: number[] = [];
+      let rawData: Buffer | number[] | undefined;
+      if (hex) {
+        rawData = Buffer.from(children as string, "hex");
+      } else if (base64) {
+        rawData = Buffer.from(children as string, "base64");
+      } else {
+        rawData = children as Buffer;
       }
-      row.push(set);
+      rawData = rawData || [];
+      const bytes = rawData.length;
+      if (Buffer.isBuffer(rawData)) {
+        for (let i = 0; i < bytes; i += 1) {
+          bufferData.push(rawData[i]);
+        }
+        if (typeof bufferData === "string") {
+          bufferData = [];
+          isError = true;
+        }
+      } else {
+        bufferData = rawData;
+      }
+      for (let i = 0; i < bytes; i += rowLength) {
+        const temparray = bufferData.slice(i, i + rowLength);
+        for (let z = temparray.length; z < rowLength; z += 1) {
+          temparray.push(-1);
+        }
+        row = [];
+        for (let x = 0, k = temparray.length; x < k; x += setLength) {
+          set = temparray.slice(x, x + setLength);
+          for (let z = set.length; z < setLength; z += 1) {
+            set.push(-1);
+          }
+          row.push(set);
+        }
+        newRows.push(row);
+      }
+      setRows(newRows);
+    } catch (e) {
+      isError = true;
+      setRows([]);
     }
-    rows.push(row);
-  }
-  return <Hex rows={rows} bytesper={rowChunk} />;
+    setIsErrorData(isError);
+  }, [children, base64, hex, rowLength, setLength]);
+  debugger;
+  return (
+    <>
+      {isErrorData && (errorData || <div>Error Data</div>)}
+      {!rows.length && !isErrorData && (noData || <div>No Data</div>)}
+      {!!rows.length && !isErrorData && <Hex rows={rows} bytesper={rowLength} />}
+    </>
+  );
 };

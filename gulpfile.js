@@ -1,31 +1,28 @@
 const { task, watch, series, parallel, dest, src } = require("gulp");
-const ts = require("gulp-typescript");
-const sourcemaps = require("gulp-sourcemaps");
-const del = require('del');
+var run = require('gulp-run');
+const del = require("del");
 
 const BUILD_FOLDER = "dist";
 
 /* COMMON */
 
 task("clean", () => {
-    return del(BUILD_FOLDER);
+  return del(BUILD_FOLDER);
 });
 
 /* TYPESCRIPT */
-const tsProject = ts.createProject("./tsconfig.build.json");
 
 task("ts", () => {
-  const tsResult = tsProject
-    .src() // src(['src/**/*.ts'])
-    .pipe(sourcemaps.init())
-    .pipe(tsProject())
-    .pipe(sourcemaps.write("."))
-    .pipe(dest(BUILD_FOLDER));
-  return tsResult;
+  return run('npm run tsc').exec();
 });
 
-task('copy', () => {
-  return src(['package.json', 'README.md', 'less', 'scss']) // src(['src/**/*.ts'])
+task("copy", () => {
+  return src(["package.json", "README.md"]) // src(['src/**/*.ts'])
+    .pipe(dest(BUILD_FOLDER));
+});
+
+task("copy-styles", () => {
+  return src(["./less/**/*.*", "./scss/**/*.*"], { base: "./" }) // src(['src/**/*.ts'])
     .pipe(dest(BUILD_FOLDER));
 });
 
@@ -34,6 +31,6 @@ task("watchTs", () => {
 });
 
 /* DEFAULT/ENTRY */
-task("build", series("clean", "ts", "copy"));
+task("build", series("clean", "ts", "copy", "copy-styles"));
 task("watch", parallel(["watchTs"]));
 task("default", series("build"));
