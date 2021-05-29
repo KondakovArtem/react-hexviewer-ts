@@ -22,7 +22,7 @@ task("copy", () => {
 });
 
 task("copy-styles", () => {
-  return src(["./less/**/*.*", "./scss/**/*.*"], { base: "./" }) // src(['src/**/*.ts'])
+  return src(["./src/less/**/*.*", "./src/scss/**/*.*"], { base: "./src" }) // src(['src/**/*.ts'])
     .pipe(dest(BUILD_FOLDER));
 });
 
