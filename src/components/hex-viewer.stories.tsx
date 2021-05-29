@@ -19,7 +19,6 @@ const CustomErrorDataNode = () => {
 }
 
 const Template: Story<HexViewerProps> = (args) => {
-  debugger;
   return <HexViewer {...args}></HexViewer>;
 };
 

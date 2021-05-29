@@ -1,15 +1,16 @@
 {
   "name": "react-hexviewer-ts",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "scripts": {
     "start": "craco start",
     "build": "gulp build",
     "tsc": "tsc --project tsconfig.build.json",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build & npm run chromatic",
     "deploy": "npm publish dist",
     "test": "craco test",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=329affb5b264"
   },
   "license": "MIT",
   "homepage": "https://github.com/KondakovArtem/react-hexviewer-ts",
