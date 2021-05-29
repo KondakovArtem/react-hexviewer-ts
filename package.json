@@ -1,6 +1,6 @@
 {
   "name": "react-hexviewer-ts",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "start": "craco start",
     "build": "gulp build",
@@ -14,6 +14,21 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/KondakovArtem/react-hexviewer-ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KondakovArtem/react-hexviewer-ts.git"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "hex",
+    "hexviewer",
+    "typescript"
+  ],
+  "author": "Kondakov Artem <kondakov.artem@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/KondakovArtem/react-hexviewer-ts/issues"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
