@@ -3,7 +3,7 @@ React Hex Viewer Ts
 
 A component is a minor reworking and rethinking of a component [react-hexviewer](https://www.npmjs.com/package/react-hexviewer) (thanks [tperson](https://www.npmjs.com/~tperson)) in the typescript
 
-![Screenshot](images/ss.png)
+![Screenshot](/images/ss.png)
 
 # Example
 ```typescript
@@ -42,13 +42,11 @@ In your projects, you can import less or scss styling from a package
 ## Less
 
 ```less
-
 @import '../node_modules/react-hexviewer-ts/less/variables.less'; // for some reason ~react-hexviewer-ts does't work properly
 @hex-color: rgb(189, 189, 189); // you can redefine variables from variables.less
 @import '~react-hexviewer-ts/less/hex-viewer.less';
 
 ```
-
 ## Sass
 ```scss
 $hex-color: rgb(189, 189, 189); // you can redefine variables from variables.less
@@ -57,6 +55,6 @@ $hex-color: rgb(189, 189, 189); // you can redefine variables from variables.les
 
 # Storybook demo
 
-[Demo link](https://www.chromatic.com/component?appId=60b2937a3474f6004127c25c&name=Example%2FHexViewer&mode=docs&buildNumber=1&specName=Primary&historyLengthAtIndex=10&distanceToMoveBack=10)
+[Demo link](https://www.chromatic.com/component?appId=60b2937a3474f6004127c25c&name=Example%2FHexViewer&mode=interactive&buildNumber=1&specName=Primary&historyLengthAtIndex=4&distanceToMoveBack=5)
 
 Comments are welcome
