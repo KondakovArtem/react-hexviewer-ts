@@ -81,7 +81,6 @@ export const HexViewer: FC<HexViewerProps> = (props) => {
     }
     setIsErrorData(isError);
   }, [children, base64, hex, rowLength, setLength]);
-  debugger;
   return (
     <>
       {isErrorData && (errorData || <div>Error Data</div>)}

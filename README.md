@@ -49,7 +49,7 @@ In your projects, you can import less or scss styling from a package
 ```
 ## Sass
 ```scss
-$hex-color: rgb(189, 189, 189); // you can redefine variables from variables.less
+$hex-color: rgb(189, 189, 189); // you can redefine variables from variables.scss
 @import '~react-hexviewer-ts/scss/hex-viewer.scss';
 ```
 
