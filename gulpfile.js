@@ -1,5 +1,7 @@
 const { task, watch, series, parallel, dest, src } = require("gulp");
-var run = require('gulp-run');
+var run = require("gulp-run");
+const modifyFile = require("gulp-modify-file");
+
 const del = require("del");
 
 const BUILD_FOLDER = "dist";
@@ -13,11 +15,28 @@ task("clean", () => {
 /* TYPESCRIPT */
 
 task("ts", () => {
-  return run('npm run tsc').exec();
+  return run("npm run tsc").exec();
+});
+
+task("copy-package.json", () => {
+  return src(["package.json"]) // src(['src/**/*.ts'])
+    .pipe(
+      modifyFile((content, path, file) => {
+        const packageJson = JSON.parse(content);
+        delete packageJson.devDependencies;
+        packageJson.peerDependencies = packageJson.dependencies
+        delete packageJson.dependencies;
+        
+        
+
+        return JSON.stringify(packageJson, null, '\t');
+      })
+    )
+    .pipe(dest(BUILD_FOLDER));
 });
 
 task("copy", () => {
-  return src(["package.json", "README.md"]) // src(['src/**/*.ts'])
+  return src(["README.md"]) // src(['src/**/*.ts'])
     .pipe(dest(BUILD_FOLDER));
 });
 
@@ -31,6 +50,9 @@ task("watchTs", () => {
 });
 
 /* DEFAULT/ENTRY */
-task("build", series("clean", "ts", "copy", "copy-styles"));
+task(
+  "build",
+  series("clean", "ts", "copy", "copy-package.json", "copy-styles")
+);
 task("watch", parallel(["watchTs"]));
 task("default", series("build"));

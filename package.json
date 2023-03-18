@@ -57,6 +57,7 @@
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-run": "^1.7.1",
+    "gulp-modify-file": "^1.0.1",
     "react-scripts": "4.0.3",
     "sass": "^1.34.0",
     "storybook-preset-craco": "^0.0.4",
