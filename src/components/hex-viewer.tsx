@@ -1,5 +1,6 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
 import { Hex } from "./hex";
+import { Buffer } from "buffer";
 
 export interface HexViewerProps {
   /** number of bytes per row */
@@ -85,7 +86,9 @@ export const HexViewer: FC<HexViewerProps> = (props) => {
     <>
       {isErrorData && (errorData || <div>Error Data</div>)}
       {!rows.length && !isErrorData && (noData || <div>No Data</div>)}
-      {!!rows.length && !isErrorData && <Hex rows={rows} bytesper={rowLength} />}
+      {!!rows.length && !isErrorData && (
+        <Hex rows={rows} bytesper={rowLength} />
+      )}
     </>
   );
 };

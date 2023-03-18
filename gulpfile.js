@@ -24,11 +24,12 @@ task("copy-package.json", () => {
       modifyFile((content, path, file) => {
         const packageJson = JSON.parse(content);
         delete packageJson.devDependencies;
+        delete packageJson.scripts;
         packageJson.peerDependencies = packageJson.dependencies
         delete packageJson.dependencies;
-        
-        
-
+        packageJson.dependencies = {
+          "buffer": "^6.0.3"
+        };
         return JSON.stringify(packageJson, null, '\t');
       })
     )

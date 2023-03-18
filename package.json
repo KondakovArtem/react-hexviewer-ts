@@ -1,12 +1,12 @@
 {
   "name": "react-hexviewer-ts",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "scripts": {
     "start": "craco start",
     "build": "gulp build",
     "tsc": "tsc --project tsconfig.build.json",
     "predeploy": "npm run build & npm run chromatic",
-    "deploy": "npm publish dist",
+    "deploy": "npm publish ./dist",
     "test": "craco test",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
